@@ -85,7 +85,9 @@
     alerts:     $('#alerts'),
     simToggle:  $('#simToggle'),
     iotBadge:   $('#iotBadge'),    demoBadge: $('#demoBadge'),
-    mapFrame:   $('#mapFrame')
+    mapFrame:   $('#mapFrame'),    mapPin:    $('#mapPin'),
+    mapPinName: $('#mapPinName'),  mapCaption: $('#mapCaption'),
+    btnLive:    $('#btnLive')
   };
 
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -158,35 +160,77 @@
     95: ['Thunderstorm', '\u26c8\ufe0f'], 96: ['Thunderstorm + hail', '\u26c8\ufe0f'], 99: ['Thunderstorm + hail', '\u26c8\ufe0f']
   };
 
-  /* ---------- Reverse geocoding (Nominatim / OpenStreetMap) ---------- */
+  /* ---------- Server-aware data fetching ----------
+     When served by app.py, queries go through /api/* endpoints (proper
+     User-Agent + caching server-side). Opened as a plain file, the browser
+     calls the public APIs directly as a fallback. */
+  const serverAPI = async (path, params) => {
+    const qs = params ? '?' + new URLSearchParams(params).toString() : '';
+    const res = await fetch('/api/' + path + qs, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) throw new Error('server ' + res.status);
+    return res.json();
+  };
+  const weatherCard = document.querySelector('.weather-card');
+  const setLoading = (on) => weatherCard && weatherCard.classList.toggle('loading', on);
+
+  /* ---------- Reverse geocoding (server → Nominatim fallback) ---------- */
   async function reverseGeocode(lat, lon) {
-    const url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + '&lon=' + lon + '&accept-language=en';
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-    if (!res.ok) throw new Error('geocode');
-    const j = await res.json();
-    const a = j.address || {};
-    loc.city = a.city || a.town || a.village || a.municipality || a.county || a.state_district || 'Unknown';
-    loc.region = a.state || a.state_district || a.region || '—';
-    loc.country = a.country || '—';
+    let addr = null;
+    try {
+      const j = await serverAPI('reverse', { lat, lon });
+      if (j && j.ok) addr = j;
+    } catch (e) { /* fall through to direct */ }
+    if (!addr) {
+      const url = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + '&lon=' + lon + '&accept-language=en';
+      const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) throw new Error('geocode');
+      const j = await res.json();
+      const a = j.address || {};
+      addr = {
+        city: a.city || a.town || a.village || a.municipality || a.county || a.state_district || 'Unknown',
+        region: a.state || a.state_district || a.region || '',
+        country: a.country || ''
+      };
+    }
+    loc.city = addr.city || 'Unknown';
+    loc.region = addr.region || '—';
+    loc.country = addr.country || '—';
   }
 
-  /* ---------- Weather fetch (Open-Meteo, no API key) ---------- */
+  /* ---------- Weather fetch (server → Open-Meteo fallback, no API key) ---------- */
   async function fetchWeather() {
     if (loc.lat == null) return;
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + loc.lat +
-      '&longitude=' + loc.lon + '&current=temperature_2m,relative_humidity_2m,weather_code&temperature_unit=celsius';
+    setLoading(true);
+    let data = null;
     try {
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error(res.status);
-      const j = await res.json();
-      weather.temp = j.current.temperature_2m;
-      weather.hum = j.current.relative_humidity_2m;
-      weather.code = j.current.weather_code;
+      const j = await serverAPI('weather', { latitude: loc.lat, longitude: loc.lon });
+      if (j && j.ok) data = j;
+    } catch (e) { /* fall through to direct */ }
+    if (!data) {
+      const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + loc.lat +
+        '&longitude=' + loc.lon + '&current=temperature_2m,relative_humidity_2m,weather_code&temperature_unit=celsius';
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(res.status);
+        const j = await res.json();
+        data = {
+          temperature_2m: j.current.temperature_2m,
+          relative_humidity_2m: j.current.relative_humidity_2m,
+          weather_code: j.current.weather_code
+        };
+      } catch (e2) {
+        data = null;
+      }
+    }
+    setLoading(false);
+    if (data) {
+      weather.temp = data.temperature_2m;
+      weather.hum = data.relative_humidity_2m;
+      weather.code = data.weather_code;
       weather.condition = (WMO[weather.code] || ['Unknown', '\u2753'])[0];
-      weather.icon = 'icon-' + weather.code;
       weather.updated = new Date();
       weather.ok = true;
-    } catch (e) {
+    } else {
       weather.ok = false;
     }
     paintWeather();
@@ -262,8 +306,7 @@
     loc.lat = lat; loc.lon = lon; loc.acc = acc != null && acc !== '' ? acc : null; loc.granted = true;
     els.locGate.style.display = 'none';
     els.liveWrap.hidden = false;
-    rideClock();
-    setInterval(rideClock, 1000);
+    if (!revealLive.clockStarted) { rideClock(); setInterval(rideClock, 1000); revealLive.clockStarted = true; }
     loadMap();
     els.coords.textContent = lat.toFixed(4) + ', ' + lon.toFixed(4);
     if (name) {
@@ -284,26 +327,47 @@
     'ph','qa','mo','sa','sg','kr','lk','sy','tw','tj','th','tl','tr','tm','ae','uz','vn','ye','ru'
   ]);
 
+  const normHit = (h) => {
+    const num = v => (v === null || v === undefined || v === '' ? null : parseFloat(v));
+    const latin = num(h.latitude), latdir = num(h.lat);
+    const lonin = num(h.longitude), londir = num(h.lon);
+    const lat = latin != null ? latin : latdir;
+    const lon = lonin != null ? lonin : londir;
+    if (lat == null || lon == null) return null;
+    return { lat, lon, acc: num(h.accuracy), name: h.display_name || '' };
+  };
+
   async function runSearch(q, errEl, loadingBtn) {
     if (!q) return;
     errEl.hidden = true;
     if (loadingBtn) loadingBtn.disabled = true;
+    let hit = null;
     try {
-      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=10&addressdetails=1&accept-language=en&q=' + encodeURIComponent(q);
-      const r = await fetch(url, { headers: { 'Accept': 'application/json' } });
-      if (!r.ok) throw new Error('search');
-      const arr = await r.json();
-      const hit = (arr || []).find(h => {
-        const cc = (h.address && h.address.country_code || '').toLowerCase();
-        return ASIA_CC.has(cc) || cc === 'a2' || cc === 'ac';
-      }) || (arr || []).find(h => (h.address && h.address.country_code || '').toLowerCase() !== '') || null;
-      if (!hit) throw new Error('noresult');
-      revealLive(parseFloat(hit.lat), parseFloat(hit.lon), hit.accuracy, hit.display_name);
-    } catch (e) {
-      errEl.hidden = false;
-    } finally {
-      if (loadingBtn) loadingBtn.disabled = false;
+      const j = await serverAPI('search', { q });
+      if (j && j.ok && j.results && j.results.length) {
+        const n = normHit(j.results[0]);
+        if (n) hit = n;
+      }
+    } catch (e) { /* fall through to direct */ }
+    if (!hit) {
+      try {
+        const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=10&addressdetails=1&accept-language=en&q=' + encodeURIComponent(q);
+        const r = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!r.ok) throw new Error('search');
+        const arr = await r.json();
+        const raw = (arr || []).find(h => {
+          const cc = ((h.address && h.address.country_code) || '').toLowerCase();
+          return ASIA_CC.has(cc);
+        }) || (arr || []).find(h => (h.address && h.address.country_code || '').toLowerCase() !== '') || null;
+        if (raw) hit = normHit(raw);
+      } catch (e2) { /* nothing */ }
     }
+    if (hit) {
+      revealLive(hit.lat, hit.lon, hit.acc, hit.name);
+    } else {
+      errEl.hidden = false;
+    }
+    if (loadingBtn) loadingBtn.disabled = false;
   }
 
   const doGateSearch = () => {
@@ -319,38 +383,61 @@
   els.locSearch.addEventListener('keydown', e => { if (e.key === 'Enter') { ensureAudio(); doGateSearch(); } });
   els.locSearch2.addEventListener('keydown', e => { if (e.key === 'Enter') { ensureAudio(); doDashSearch(); } });
 
-  /* ---------- Step 1 & 2: request browser location ---------- */
-  function requestLocation() {
+  /* ---------- Shared GPS helper ---------- */
+  const getPosition = () => new Promise((resolve, reject) => {
+    if (!navigator.geolocation) { reject(new Error('unsupported')); return; }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude, acc: pos.coords.accuracy }),
+      (err) => reject(err),
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+    );
+  });
+
+  const mapErr = (err) => {
+    if (err.code === err.PERMISSION_DENIED) return 'permission denied';
+    if (err.code === err.POSITION_UNAVAILABLE) return 'position unavailable';
+    if (err.code === err.TIMEOUT) return 'timed out';
+    return err.message || 'unavailable';
+  };
+
+  /* ---------- Step 1 & 2: request browser location (permission gate) ---------- */
+  async function requestLocation() {
     els.btnLoc.hidden = true;
     els.btnLocRetry.hidden = true;
     els.locErr.hidden = true;
     els.locLoading.hidden = false;
     els.locLoading.textContent = ' Requesting location permission\u2026';
-
-    if (!navigator.geolocation) {
-      failLocation('Geolocation is not supported by this browser.');
-      return;
+    try {
+      const p = await getPosition();
+      els.locLoading.hidden = true;
+      revealLive(p.lat, p.lon, p.acc);
+    } catch (err) {
+      els.locLoading.hidden = true;
+      failLocation(err.code === err.PERMISSION_DENIED
+        ? 'Location access denied. Please enable location permission to view local environmental data.'
+        : err.code === err.POSITION_UNAVAILABLE
+          ? 'Position unavailable. Move to an open area and try again.'
+          : err.code === err.TIMEOUT
+            ? 'Location request timed out. Please try again.'
+            : 'Unable to access location. ' + (err.message || ''));
     }
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        els.locLoading.hidden = true;
-        revealLive(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy);
-      },
-      (err) => {
-        els.locLoading.hidden = true;
-        if (err.code === err.PERMISSION_DENIED) {
-          failLocation('Location access denied. Please enable location permission to view local environmental data.');
-        } else if (err.code === err.POSITION_UNAVAILABLE) {
-          failLocation('Position unavailable. Move to an open area and try again.');
-        } else if (err.code === err.TIMEOUT) {
-          failLocation('Location request timed out. Please try again.');
-        } else {
-          failLocation('Unable to access location. ' + (err.message || ''));
-        }
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
-    );
   }
+
+  /* ---------- Re-fetch live location from inside the dashboard ---------- */
+  async function relocate() {
+    els.btnLive.disabled = true;
+    els.locNote.innerHTML = 'Location source: <b>requesting live GPS location&hellip;</b>';
+    try {
+      const p = await getPosition();
+      revealLive(p.lat, p.lon, p.acc);
+    } catch (err) {
+      els.locNote.innerHTML = 'Location source: <b>live location ' + mapErr(err) +
+        ' &mdash; use search or check browser permission.</b>';
+    } finally {
+      els.btnLive.disabled = false;
+    }
+  }
+  els.btnLive.addEventListener('click', () => { ensureAudio(); relocate(); });
 
   const failLocation = (msg) => {
     els.locLoading.hidden = true;
@@ -366,12 +453,31 @@
     fetchWeather().then(() => { els.btnRefresh.disabled = false; });
   });
 
-  /* ---------- Step 9: location map (OpenStreetMap embed, no key) ---------- */
+  /* ---------- Step 9: location map — pin marks the exact spot (OSM embed, no key) ---------- */
   function loadMap() {
-    const d = 0.02;
+    const d = 0.015;
     const bbox = [loc.lon - d, loc.lat - d, loc.lon + d, loc.lat + d].join(',');
-    els.mapFrame.innerHTML =
-      '<iframe title="Detected location map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=' + bbox + '&layer=mapnik&marker=' + loc.lat + ',' + loc.lon + '"></iframe>';
+    let frame = document.getElementById('mapIframe');
+    if (!frame) {
+      frame = document.createElement('iframe');
+      frame.id = 'mapIframe';
+      frame.title = 'Detected location map';
+      frame.loading = 'lazy';
+      frame.referrerPolicy = 'no-referrer-when-downgrade';
+      els.mapFrame.prepend(frame);
+    }
+    frame.src = 'https://www.openstreetmap.org/export/embed.html?bbox=' + bbox + '&layer=mapnik&marker=' + loc.lat + ',' + loc.lon;
+
+    const ph = els.mapFrame.querySelector('.map-placeholder');
+    if (ph) ph.style.display = 'none';
+
+    els.mapPin.hidden = false;
+    els.mapPinName.textContent = loc.exact
+      ? loc.exact.split(',').slice(0, 2).join(',')
+      : (loc.city && loc.city !== '—' ? loc.city : 'You are here');
+    els.mapCaption.innerHTML =
+      'Marker: <b>' + loc.lat.toFixed(4) + ', ' + loc.lon.toFixed(4) + '</b>' +
+      (loc.exact ? ' &mdash; ' + loc.exact : ' &mdash; your detected GPS position');
   }
 
   /* =====================================================================

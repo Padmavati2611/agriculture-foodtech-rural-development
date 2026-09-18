@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="static/styles.css" />
 </head>
 <body>
 
@@ -444,6 +444,7 @@
           <span class="lsr-icon">&#128269;</span>
           <input type="text" id="locSearch2" list="knownCities" placeholder="Search any place in Asia (city, town or small village) for an exact weather report&hellip;" />
           <button class="btn btn-primary btn-sm" id="btnSearch2">Search</button>
+          <button class="btn btn-ghost btn-sm" id="btnLive" title="Use my actual current location">&#128506; My Live Location</button>
         </div>
         <p class="loc-note" id="locNote">Location source: —</p>
 
@@ -589,7 +590,7 @@
                 <span class="alert-live"><span class="dot pulse"></span> Live</span>
               </span>
             </div>
-            <div class="alerts" id="alerts">
+            <div class="alerts" id="alerts" aria-live="polite" aria-atomic="false">
               <div class="alert-item alert-red">
                 <span class="alert-ico">&#128308;</span>
                 <div class="alert-txt"><b>SENSOR ALERT</b> &mdash; Temperature sensor is disconnected or no data has been received.</div>
@@ -603,8 +604,13 @@
         <div class="map-wrap">
           <div class="map-title">&#128506; Detected Location</div>
           <div class="map-frame" id="mapFrame">
+            <div class="map-pin" id="mapPin" hidden>
+              <span class="map-pin-name" id="mapPinName"></span>
+              <span class="map-pin-dot"></span>
+            </div>
             <p class="map-placeholder">Map appears here after location access is granted.</p>
           </div>
+          <div class="map-caption" id="mapCaption">—</div>
           <p class="privacy-note">
             &#128274; Location is used only to provide local environmental data and is not stored unless the user explicitly
             chooses to save it.
@@ -790,6 +796,6 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="static/script.js"></script>
 </body>
 </html>
