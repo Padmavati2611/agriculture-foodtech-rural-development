@@ -21,7 +21,8 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Open **http://127.0.0.1:5000** — Weather, geocoding and search go through `app.py`,
+Open : https://agriculture-foodtech-rural-development-t34s.onrender.com
+Weather, geocoding and search go through `app.py`,
 which uses a proper User-Agent and caching for the free Open-Meteo / OpenStreetMap APIs.
 
 ## Or run it without Python
