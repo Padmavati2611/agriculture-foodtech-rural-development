@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Solar-Powered Smart Mini Cold Storage System for Fresh Vegetables in North Eastern Region (NER) — an AgriTech innovation to cut post-harvest losses and boost farmer income." />
+  <title>SunChill | Solar-Powered Smart Mini Cold Storage for the North East</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="brand">
+        <span class="brand-icon">&#9728;</span>
+        <span class="brand-name">Sun<span class="accent">Chill</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#live">Live Demo</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#impact">Impact</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+      <a href="#contact" class="btn btn-primary nav-cta">Get Involved</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-glow"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="chip theme-chip">Theme &middot; Agriculture, FoodTech &amp; Rural Development</span>
+        <h1 class="hero-title">Solar-Powered <span class="grad-text">Smart Mini Cold Storage</span> for the North Eastern Region</h1>
+        <p class="hero-sub">
+          A decentralised, off-grid, IoT-enabled cold storage unit that keeps fresh vegetables crisp
+          from farm gate to market — cutting post-harvest losses and putting more money into farmers' hands.
+        </p>
+        <div class="hero-actions">
+          <a href="#live" class="btn btn-primary btn-lg">View Live Demo</a>
+          <a href="#solution" class="btn btn-ghost btn-lg">Explore the Solution</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num" data-target="64">0</span><span class="stat-suffix">&#37;</span>
+            <span class="stat-label">Viewers report veggies spoiling in transit*</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="100">0</span><span class="stat-suffix">&#37;</span>
+            <span class="stat-label">Solar-powered &amp; off-grid ready</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num" data-target="5">0</span><span class="stat-suffix"> Tonnes</span>
+            <span class="stat-label">Storage capacity / unit (scalable)</span>
+          </div>
+        </div>
+        <p class="hero-footnote">*As per NABARD / ASSOCHAM studies on post-harvest losses in the North East.</p>
+      </div>
+      <div class="hero-visual">
+        <div class="unit-card">
+          <div class="unit-sun">&#9728;</div>
+          <div class="unit-panel">
+            <div class="panel-cell"></div><div class="panel-cell"></div><div class="panel-cell"></div><div class="panel-cell"></div>
+            <div class="panel-cell"></div><div class="panel-cell"></div><div class="panel-cell"></div><div class="panel-cell"></div>
+            <div class="panel-cell"></div><div class="panel-cell"></div><div class="panel-cell"></div><div class="panel-cell"></div>
+          </div>
+          <div class="unit-body">
+            <div class="unit-roof"></div>
+            <div class="unit-temp">Cold Room &middot; 4&deg;C</div>
+            <div class="unit-door"></div>
+          </div>
+          <div class="unit-base"></div>
+          <div class="unit-status">
+            <span class="dot"></span> System Online &middot; IoT Connected
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEM ===== -->
+  <section class="section" id="problem">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">The Challenge</span>
+        <h2 class="section-title">A Cold Chain Gap in India's Food Bowl</h2>
+        <p class="section-sub">
+          The North Eastern Region grows abundant fresh produce, yet a broken cold chain forces farmers to
+          sell at throwaway prices — or watch their harvest rot.
+        </p>
+      </div>
+      <div class="grid grid-2">
+        <div class="problem-card">
+          <div class="problem-num">01</div>
+          <h3>Heavy Post-Harvest Losses</h3>
+          <p>
+            Roughly <strong>15–20% of fresh vegetables</strong> from the NER are lost between harvest and
+            consumption — far above the national average — due to high humidity, perishability and long,
+            hilly transit routes.
+          </p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">02</div>
+          <h3>No Grid, No Cold Storage</h3>
+          <p>
+            Many NER villages lack reliable grid power. Conventional refrigerated warehouses are few, distant,
+            diesel-dependent and expensive, leaving smallholders with <strong>no affordable storage option</strong> near the farm.
+          </p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">03</div>
+          <h3>Distress Selling &amp; Price Volatility</h3>
+          <p>
+            Without storage, farmers must sell immediately, often fetching <strong>only 30–40% of retail value</strong>.
+            Unable to wait for better prices, they lose bargaining power to middlemen.
+          </p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">04</div>
+          <h3>Wasted Energy &amp; Resources</h3>
+          <p>
+            Every kg of produce wasted also wastes the <strong>water, fertiliser, labour and fuel</strong> used to grow
+            and transport it — a drain on rural livelihoods and the environment alike.
+          </p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="callout-icon">&#9888;&#65039;</span>
+        <p>
+          Combined, these gaps mean <strong>billions of rupees</strong> of potential farmer income is lost in the NER
+          every year, while urban consumers pay premium prices for imported veggies.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOLUTION ===== -->
+  <section class="section section-alt" id="solution">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Our Solution</span>
+        <h2 class="section-title">SunChill — Cold Storage That Runs on Sunshine</h2>
+        <p class="section-sub">
+          A portable, solar-powered smart cold room designed for NER's terrain, climate and farmer realities.
+        </p>
+      </div>
+      <div class="solution-wrap">
+        <div class="solution-text">
+          <h3>What is SunChill?</h3>
+          <p>
+            SunChill is a <strong>decentralised mini cold storage unit</strong> built on insulated panels,
+            powered entirely by rooftop solar + battery, and governed by an <strong>AI-assisted smart controller</strong>.
+            It maintains optimum temperature and humidity for different vegetables — extending shelf life
+            from <strong>days to weeks</strong> right at the farm gate.
+          </p>
+          <ul class="check-list">
+            <li><strong>2–5 tonne capacity</strong> — right-sized for smallholder clusters &amp; producer groups (FPOs).</li>
+            <li><strong>100% solar, off-grid</strong> — works even where the grid cannot reach.</li>
+            <li><strong>IoT remote monitoring</strong> — farmers &amp; buyers see live status on a mobile app.</li>
+            <li><strong>Modular &amp; portable</strong> — can be deployed in the most remote districts.</li>
+            <li><strong>Walk-in or multi-room</strong> — separate zones for leafy greens, tubers and fruit.</li>
+          </ul>
+          <a href="#architecture" class="link-arrow">See how it works &rarr;</a>
+        </div>
+        <div class="solution-flow">
+          <div class="flow-step">
+            <span class="flow-icon">&#127793;</span>
+            <div><strong>Harvest</strong><p>Farmers harvest fresh vegetables in the hills of NER.</p></div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-icon">&#9728;&#65039;</span>
+            <div><strong>Pre-cool inside SunChill</strong><p>Solar-powered unit removes field heat within hours.</p></div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-icon">&#128241;</span>
+            <div><strong>Smart monitoring</strong><p>IoT sensors tune temp &amp; humidity; alerts on mobile app.</p></div>
+          </div>
+          <div class="flow-step">
+            <span class="flow-icon">&#128178;</span>
+            <div><strong>Higher farmer income</strong><p>Store, wait for good prices, deliver fresher produce.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Capabilities</span>
+        <h2 class="section-title">Smart Features, Rural Toughness</h2>
+        <p class="section-sub">Engineered for reliability in remote, humid and power-scarce terrain.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">&#9728;&#65039;</div>
+          <h3>Solar-Powered Cooling</h3>
+          <p>
+            High-efficiency PV array with smart MPPT charge control and lithium battery backup —
+            up to <strong>40+ hours</strong> of outage resilience.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">&#127777;&#65039;</div>
+          <h3>Precise Environment Control</h3>
+          <p>
+            Maintains <strong>2–10&deg;C</strong> and 80–95% humidity with variable-speed compressor and
+            evaporative humidification tuned per crop.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">&#128200;</div>
+          <h3>IoT Remote Monitoring</h3>
+          <p>
+            Temperature, humidity, power and door status streamed to a dashboard with
+            <strong>SMS + app alerts</strong> on thresholds.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">&#129514;</div>
+          <h3>Passive Thermal Buffer (PCM)</h3>
+          <p>
+            Phase-change material stores cold during peak solar hours and releases it overnight —
+            cutting compressor duty and cost.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">&#128737;&#65039;</div>
+          <h3>Rugged &amp; Modular Build</h3>
+          <p>
+            PUF-insulated sandwich panels with fire-retardant coating; bolt-together design
+            installs within <strong>48 hours on any terrain</strong>.
+          </p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">&#129309;</div>
+          <h3>Farm-Cluster Ready</h3>
+          <p>
+            A co-operative ownership model lets FPOs and women SHGs each store, track and trade
+            collectively — Built for rural economics.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ARCHITECTURE ===== -->
+  <section class="section section-alt" id="architecture">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Technical Design</span>
+        <h2 class="section-title">System Architecture</h2>
+        <p class="section-sub">From sun to sensor — the flow of power and data inside SunChill.</p>
+      </div>
+      <div class="arch-grid">
+        <div class="arch-block power">
+          <h3><span class="arch-icon">&#9889;</span> Power &amp; Cooling</h3>
+          <ul>
+            <li>Solar PV array — 5.0–7.5 kWp, east-west mount</li>
+            <li>MPPT charge controller + hybrid inverter</li>
+            <li>LiFePO4 battery bank — 48V, ~20 kWh</li>
+            <li>Variable-speed DC compressor on R290 refrigerant</li>
+            <li>PCM cold-buffer panels (zero-credit shifted load)</li>
+          </ul>
+        </div>
+        <div class="arch-block sensing">
+          <h3><span class="arch-icon">&#128225;</span> Sensing &amp; Control</h3>
+          <ul>
+            <li>IoT controller (ESP32-class) + edge firmware</li>
+            <li>Temp &amp; humidity probes (DS18B20 / SHT31)</li>
+            <li>Door-open, power &amp; airflow sensors</li>
+            <li>PID control loop optimises compressor duty</li>
+            <li>Local micro-SD data logging for offline periods</li>
+          </ul>
+        </div>
+        <div class="arch-block iot">
+          <h3><span class="arch-icon">&#127760;</span> Connectivity &amp; Cloud</h3>
+          <ul>
+            <li>Cellular (2G/4G) + optional LoRa mesh for valleys</li>
+            <li>Cloud backend — live telemetry &amp; analytics</li>
+            <li>Farmer mobile app (Hindi/English/NER languages)</li>
+            <li>Predictive alerts for batch ripening &amp; power events</li>
+            <li>Admin dashboard for FPO/cooperative managers</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-strip">
+        <div class="spec"><span class="spec-k">Capacity</span><span class="spec-v">2–5 T</span></div>
+        <div class="spec"><span class="spec-k">Temp Range</span><span class="spec-v">2–10&deg;C</span></div>
+        <div class="spec"><span class="spec-k">Rel. Humidity</span><span class="spec-v">80–95%</span></div>
+        <div class="spec"><span class="spec-k">Energy</span><span class="spec-v">100% Solar</span></div>
+        <div class="spec"><span class="spec-k">Install Time</span><span class="spec-v">&lt; 48 hrs</span></div>
+        <div class="spec"><span class="spec-k">Lifetime</span><span class="spec-v">20+ years</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LIVE DEMO ===== -->
+  <section class="section" id="live">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Live Demo</span>
+        <h2 class="section-title">IoT &amp; AI Monitoring Dashboard</h2>
+        <p class="section-sub">
+          Real outdoor weather for your location, shown separately from in-unit cold-storage sensor data.
+          No physical sensor connected? The dashboard says so — honestly.
+        </p>
+      </div>
+
+      <!-- LOCATION GATE / STEP 1 -->
+      <div class="loc-gate" id="locGate">
+        <div class="loc-gate-card">
+          <span class="loc-gate-icon">&#128205;</span>
+          <h3>Location &amp; Environmental Data</h3>
+          <p class="loc-gate-p">
+            Allow location access to fetch your current <strong>outdoor</strong> temperature, humidity and weather
+            conditions for display on this dashboard.
+          </p>
+          <div class="loc-privacy">
+            <strong>&#128274; Privacy:</strong> your location is used only to provide local environmental data and is not
+            stored unless the user explicitly chooses to save it.
+          </div>
+          <div class="loc-gate-actions">
+            <button class="btn btn-primary" id="btnLoc">Allow Location Access</button>
+            <button class="btn btn-ghost" id="btnLocRetry" hidden>Try Location Again</button>
+          </div>
+          <div class="loc-loading" id="locLoading" hidden>
+            <span class="spinner"></span> Detecting location and fetching weather&hellip;
+          </div>
+          <div class="loc-err" id="locErr" hidden>
+            <span class="loc-err-msg">Location access denied. Please enable location permission to view local environmental data.</span>
+            <span class="loc-err-note">Resolve it and click &ldquo;Try Location Again&rdquo; above. SunChill never invents a location.</span>
+          </div>
+          <div class="loc-or"><span>or search anywhere across Asia &mdash; cities, towns &amp; small villages</span></div>
+          <div class="loc-search">
+            <input type="text" id="locSearch" list="knownCities" placeholder="Any place in Asia, e.g. Guwahati, Shillong, Kathmandu, Thimphu, a small village&hellip;" />
+            <button class="btn btn-primary" id="btnSearch">Search</button>
+          </div>
+          <datalist id="knownCities">
+            <option value="Guwahati, Assam, India"></option>
+            <option value="Shillong, Meghalaya, India"></option>
+            <option value="Silchar, Assam, India"></option>
+            <option value="Dibrugarh, Assam, India"></option>
+            <option value="Jorhat, Assam, India"></option>
+            <option value="Itanagar, Arunachal Pradesh, India"></option>
+            <option value="Dimapur, Nagaland, India"></option>
+            <option value="Kohima, Nagaland, India"></option>
+            <option value="Imphal, Manipur, India"></option>
+            <option value="Aizawl, Mizoram, India"></option>
+            <option value="Agartala, Tripura, India"></option>
+            <option value="Gangtok, Sikkim, India"></option>
+            <option value="Darjeeling, West Bengal, India"></option>
+            <option value="Kolkata, West Bengal, India"></option>
+            <option value="New Delhi, India"></option>
+            <option value="Mumbai, India"></option>
+            <option value="Bengaluru, India"></option>
+            <option value="Chennai, India"></option>
+            <option value="Kathmandu, Nepal"></option>
+            <option value="Pokhara, Nepal"></option>
+            <option value="Thimphu, Bhutan"></option>
+            <option value="Paro, Bhutan"></option>
+            <option value="Dhaka, Bangladesh"></option>
+            <option value="Chittagong, Bangladesh"></option>
+            <option value="Colombo, Sri Lanka"></option>
+            <option value="Malé, Maldives"></option>
+            <option value="Yangon, Myanmar"></option>
+            <option value="Mandalay, Myanmar"></option>
+            <option value="Phnom Penh, Cambodia"></option>
+            <option value="Siem Reap, Cambodia"></option>
+            <option value="Luang Prabang, Laos"></option>
+            <option value="Vientiane, Laos"></option>
+            <option value="Hanoi, Vietnam"></option>
+            <option value="Ho Chi Minh City, Vietnam"></option>
+            <option value="Bangkok, Thailand"></option>
+            <option value="Chiang Mai, Thailand"></option>
+            <option value="Kuala Lumpur, Malaysia"></option>
+            <option value="Singapore"></option>
+            <option value="Jakarta, Indonesia"></option>
+            <option value="Yogyakarta, Indonesia"></option>
+            <option value="Manila, Philippines"></option>
+            <option value="Cebu, Philippines"></option>
+            <option value="Beijing, China"></option>
+            <option value="Shanghai, China"></option>
+            <option value="Lhasa, Tibet, China"></option>
+            <option value="Ulaanbaatar, Mongolia"></option>
+            <option value="Tokyo, Japan"></option>
+            <option value="Osaka, Japan"></option>
+            <option value="Seoul, South Korea"></option>
+            <option value="Taipei, Taiwan"></option>
+            <option value="Islamabad, Pakistan"></option>
+            <option value="Lahore, Pakistan"></option>
+            <option value="Karachi, Pakistan"></option>
+            <option value="Kabul, Afghanistan"></option>
+            <option value="Tehran, Iran"></option>
+            <option value="Isfahan, Iran"></option>
+            <option value="Baghdad, Iraq"></option>
+            <option value="Dubai, UAE"></option>
+            <option value="Abu Dhabi, UAE"></option>
+            <option value="Muscat, Oman"></option>
+            <option value="Manama, Bahrain"></option>
+            <option value="Kuwait City, Kuwait"></option>
+            <option value="Doha, Qatar"></option>
+            <option value="Riyadh, Saudi Arabia"></option>
+            <option value="Amman, Jordan"></option>
+            <option value="Beirut, Lebanon"></option>
+            <option value="Tbilisi, Georgia"></option>
+            <option value="Yerevan, Armenia"></option>
+            <option value="Baku, Azerbaijan"></option>
+          </datalist>
+          <div class="loc-err" id="locSearchErr" hidden>
+            <span class="loc-err-msg">Location not found in Asia. Try another city, town or village name.</span>
+          </div>
+          <p class="loc-footnote">
+            SunChill measures the <strong>outdoor</strong> temperature from the weather API for your coordinates.
+            The <strong>cold-storage</strong> temperature can only come from a physical IoT sensor inside the unit.
+          </p>
+        </div>
+      </div>
+
+      <!-- LIVE DASHBOARD (revealed after location access) -->
+      <div id="liveWrap" hidden>
+        <div class="live-meta">
+          <div class="live-meta-left">
+            <span class="demo-badge" id="demoBadge">DEMO MODE &middot; some data shown is simulated</span>
+            <span class="iot-badge" id="iotBadge"><span class="dot-badge"></span> IoT Sensor: Not Connected</span>
+          </div>
+          <div class="live-meta-right" id="liveClock">—</div>
+        </div>
+
+        <!-- City search (exact weather report for any Indian location) -->
+        <div class="loc-search-row">
+          <span class="lsr-icon">&#128269;</span>
+          <input type="text" id="locSearch2" list="knownCities" placeholder="Search any place in Asia (city, town or small village) for an exact weather report&hellip;" />
+          <button class="btn btn-primary btn-sm" id="btnSearch2">Search</button>
+        </div>
+        <p class="loc-note" id="locNote">Location source: —</p>
+
+        <!-- STEP: outdoor vs cold storage kept separate -->
+        <div class="dash-cards">
+          <!-- 2. CURRENT WEATHER CARD -->
+          <div class="dash-card weather-card">
+            <div class="dash-card-head">
+              <span class="dash-card-title">&#128205; Current Location &amp; Weather</span>
+              <button class="icon-btn" id="btnRefresh" title="Refresh weather" aria-label="Refresh weather">&#8635;</button>
+            </div>
+            <div class="wc-loc" id="wcCity">Detecting city&hellip;</div>
+            <div class="wc-row">
+              <div class="wc-main">
+                <span class="wc-icon" id="wcIcon">&#9925;</span>
+                <div>
+                  <div class="wc-cond" id="wcCond2">Fetching conditions&hellip;</div>
+                  <div class="wc-temp" id="wcTemp">---&deg;C</div>
+                  <div class="wc-label">Current Outdoor Temperature</div>
+                </div>
+              </div>
+              <div class="wc-side">
+                <div class="wc-side-row">&#128167; Humidity&nbsp;&nbsp;<b id="wcHumid">--%</b></div>
+                <div class="wc-side-row">&#9729;&#65039; Condition&nbsp;&nbsp;<b id="wcCond">fetching&hellip;</b></div>
+                <div class="wc-side-row">&#9201;&#65039; Updated&nbsp;&nbsp;<b id="wcUpdated">—</b></div>
+              </div>
+            </div>
+            <div class="wc-note">Outdoor environmental data based on your selected location.</div>
+            <div class="wc-cal">
+              <span class="wc-cal-label">Yours reads different? Calibrate:</span>
+              <input type="number" id="calInput" step="0.1" placeholder="Your outdoor temp, e.g. 31" />
+              <span class="wc-cal-unit">&deg;C</span>
+              <button class="btn btn-primary btn-sm" id="btnCal">Calibrate</button>
+              <button class="btn btn-ghost btn-sm" id="btnCalReset" hidden>Reset</button>
+              <span class="wc-cal-note" id="calNote"></span>
+            </div>
+          </div>
+
+          <!-- 3. COLD STORAGE CARD -->
+          <div class="dash-card cold-card">
+            <div class="dash-card-head">
+              <span class="dash-card-title">&#10052;&#65039; Cold Storage Temperature</span>
+              <span class="src-chip demo-chip" id="coldSrcChip">Demo/Simulated Data</span>
+            </div>
+            <div class="cold-main">
+              <div class="cold-temp" id="coldTemp">Not connected</div>
+              <div class="cold-note" id="coldNote">Connect an IoT temperature sensor to view real-time cold-room temperature.</div>
+            </div>
+            <div class="cold-zone" id="coldZone">
+              Safe zone 2&ndash;10&deg;C &nbsp;<span class="status-chip st-green" id="coldZoneSt">Optimal</span>
+            </div>
+            <div class="sim-toggle">
+              <label class="switch">
+                <input type="checkbox" id="simToggle" />
+                <span class="slider"></span>
+              </label>
+              <span class="sim-label">Enable Demo Simulation <span class="demo-small">(simulated sensor feed, clearly labelled)</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. FARMER-FRIENDLY DASHBOARD CARDS -->
+        <div class="farmer-grid">
+          <div class="f-card" id="fOutTemp">
+            <span class="f-icon">&#128205;</span>
+            <span class="f-label">Location</span>
+            <span class="f-value" id="fCoords">--, --</span>
+            <span class="f-status st-green">Live &middot; GPS</span>
+          </div>
+          <div class="f-card" id="fOutTempCard">
+            <span class="f-icon">&#127777;&#65039;</span>
+            <span class="f-label">Outdoor Temperature</span>
+            <span class="f-value" id="fOutTempV">--&deg;C</span>
+            <span class="f-status st-green">Live &middot; Weather API</span>
+          </div>
+          <div class="f-card" id="fOutHumCard">
+            <span class="f-icon">&#128167;</span>
+            <span class="f-label">Outdoor Humidity</span>
+            <span class="f-value" id="fOutHumV">--%</span>
+            <span class="f-status st-green">Live &middot; Weather API</span>
+          </div>
+          <div class="f-card" id="fColdCard">
+            <span class="f-icon">&#10052;&#65039;</span>
+            <span class="f-label">Cold Storage Temperature</span>
+            <span class="f-value" id="fColdV">Not connected</span>
+            <span class="f-status" id="fColdSt">No Sensor &middot; Demo</span>
+          </div>
+          <div class="f-card" id="fBatteryCard">
+            <span class="f-icon">&#128267;</span>
+            <span class="f-label">Battery</span>
+            <span class="f-value" id="fBatteryV">--%</span>
+            <span class="f-status st-yellow" id="fBatterySt">Demo &middot; Simulated</span>
+          </div>
+          <div class="f-card" id="fSolarCard">
+            <span class="f-icon">&#9728;&#65039;</span>
+            <span class="f-label">Solar Power</span>
+            <span class="f-value" id="fSolarV">-- kW</span>
+            <span class="f-status st-yellow">Demo &middot; Simulated</span>
+          </div>
+          <div class="f-card" id="fDoorCard">
+            <span class="f-icon">&#128682;</span>
+            <span class="f-label">Door Status</span>
+            <span class="f-value" id="fDoorV">--</span>
+            <span class="f-status st-yellow" id="fDoorSt">Demo &middot; Simulated</span>
+          </div>
+          <div class="f-card" id="fCoolCard">
+            <span class="f-icon">&#10052;&#65039;</span>
+            <span class="f-label">Cooling System</span>
+            <span class="f-value" id="fCoolV">--</span>
+            <span class="f-status st-yellow" id="fCoolSt">Demo &middot; Simulated</span>
+          </div>
+          <div class="f-card" id="fRiskCard">
+            <span class="f-icon">&#129302;</span>
+            <span class="f-label">AI Spoilage Risk</span>
+            <span class="f-value" id="fRiskV">--</span>
+            <span class="f-status st-yellow" id="fRiskSt">Demo Prediction</span>
+          </div>
+        </div>
+
+        <!-- 5. ALERTS + 8. AI SPOILAGE -->
+        <div class="ai-alert-row">
+          <div class="ai-card">
+            <div class="dash-card-head">
+              <span class="dash-card-title">&#129302; AI Spoilage Risk</span>
+              <span class="src-chip demo-chip">Demo Prediction</span>
+            </div>
+            <div class="risk-pill st-green" id="riskPill">--</div>
+            <div class="risk-bar">
+              <div class="risk-bar-fill" id="riskBar"></div>
+            </div>
+            <p class="ai-desc">
+              The AI model estimates spoilage risk from <strong>temperature history, humidity, storage duration,
+              crop/produce type and sensor readings</strong>.
+            </p>
+            <p class="ai-note" id="aiNote">Demo Prediction — real predictions require a connected sensor and historical data.</p>
+          </div>
+
+          <div class="alert-card">
+            <div class="dash-card-head">
+              <span class="dash-card-title">&#128680; Alerts</span>
+              <span class="alert-ctrls">
+                <button class="sound-btn" id="btnSound" title="Toggle alert sound">&#128276; Sound: On</button>
+                <span class="alert-live"><span class="dot pulse"></span> Live</span>
+              </span>
+            </div>
+            <div class="alerts" id="alerts">
+              <div class="alert-item alert-red">
+                <span class="alert-ico">&#128308;</span>
+                <div class="alert-txt"><b>SENSOR ALERT</b> &mdash; Temperature sensor is disconnected or no data has been received.</div>
+              </div>
+            </div>
+            <div class="alert-note">Cold-storage alerts fire only from the IoT sensor feed &mdash; never from outdoor weather.</div>
+          </div>
+        </div>
+
+        <!-- 9. LOCATION-BASED MAP -->
+        <div class="map-wrap">
+          <div class="map-title">&#128506; Detected Location</div>
+          <div class="map-frame" id="mapFrame">
+            <p class="map-placeholder">Map appears here after location access is granted.</p>
+          </div>
+          <p class="privacy-note">
+            &#128274; Location is used only to provide local environmental data and is not stored unless the user explicitly
+            chooses to save it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW SUNCHILL WORKS ===== -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Under the Hood</span>
+        <h2 class="section-title">How SunChill Uses Location, IoT and AI</h2>
+        <p class="section-sub">Five simple layers, each with a distinct job — together they protect the harvest.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <span class="how-icon">&#128205;</span>
+          <h3>Location</h3>
+          <p>Identifies where the SunChill unit is operating and provides local environmental conditions.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-icon">&#127788;&#65039;</span>
+          <h3>Weather</h3>
+          <p>Provides outdoor temperature and humidity based on the selected location — so the unit knows its ambient heat load.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-icon">&#128225;</span>
+          <h3>IoT</h3>
+          <p>Measures the actual temperature and humidity INSIDE the cold-storage unit using physical sensors.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-icon">&#129504;</span>
+          <h3>AI</h3>
+          <p>Uses sensor and storage data to identify abnormal conditions and estimate spoilage risk.</p>
+        </div>
+        <div class="how-card">
+          <span class="how-icon">&#128680;</span>
+          <h3>Alerts</h3>
+          <p>Warns the farmer when a critical condition — temperature, battery or door — requires attention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMPACT ===== -->
+  <section class="section section-alt" id="impact">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Why It Matters</span>
+        <h2 class="section-title">Measurable Impact for Rural India</h2>
+        <p class="section-sub">One unit in one village — and the effects ripple far beyond it.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="impact-card">
+          <span class="impact-num big" data-target="40">0</span><span class="impact-suffix">%</span>
+          <h4>Lower Farm-level Waste</h4>
+          <p>Cut vegetable spoilage from ~15–20% toward a single digit through pre-cooling &amp; controlled storage.</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num big" data-target="12">0</span><span class="impact-suffix">&times;</span>
+          <h4>Shelf-Life Extension</h4>
+          <p>Leafy greens that spoil in 2–3 days stay market-fresh for up to 3–4 weeks at optimal conditions.</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num prefix">&#8377;</span><span class="impact-num big" data-target="28000">0</span>
+          <h4>Extras / Farmer / Yr</h4>
+          <p>Estimated income upside per household through price-timing, collective selling and quality premiums.</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num big" data-target="100">0</span><span class="impact-suffix">%</span>
+          <h4>Renewable Energy</h4>
+          <p>Zero diesel, zero grid dependency — cutting ~4.2 t CO&#8322; emissions per unit per year.</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num big" data-target="5">0</span><span class="impact-suffix"> States</span>
+          <h4>NER Coverage Growth</h4>
+          <p>Deployable across Arunachal, Assam, Meghalaya, Manipur, Mizoram, Nagaland, Sikkim &amp; Tripura.</p>
+        </div>
+        <div class="impact-card">
+          <span class="impact-num prefix">&#8377;</span><span class="impact-num big" data-target="18000">0</span>
+          <h4>Runs / Month / Unit</h4>
+          <p>Estimated operating cost — around a tenth of diesel-run cold storage monthly OPEX.</p>
+        </div>
+      </div>
+      <div class="sdg-strip">
+        <span class="sdg-title">Aligns with SDGs:</span>
+        <span class="sdg-tag">SDG 2 &middot; Zero Hunger</span>
+        <span class="sdg-tag">SDG 7 &middot; Affordable Clean Energy</span>
+        <span class="sdg-tag">SDG 8 &middot; Decent Work &amp; Economic Growth</span>
+        <span class="sdg-tag">SDG 13 &middot; Climate Action</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP ===== -->
+  <section class="section" id="roadmap">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">The Journey</span>
+        <h2 class="section-title">Roadmap to Scale</h2>
+        <p class="section-sub">From lab prototype to 500 villages across the North East.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item done">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <span class="tl-phase">Phase 0 &middot; Now</span>
+            <h4>Validated Design &amp; Pilot Plan</h4>
+            <p>Thermal + solar sizing simulated; FPO partnerships being lined up in Sikkim &amp; Meghalaya; pilot site identified.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <span class="tl-phase">Phase 1 &middot; Months 1–6</span>
+            <h4>Field-Prototype Deployment</h4>
+            <p>Two pilot units installed on working farms; real sensor data collected across monsoon &amp; winter seasons.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <span class="tl-phase">Phase 2 &middot; Months 7–15</span>
+            <h4>Co-op Rollout &amp; App Launch</h4>
+            <p>FPO/SHG franchise model; farmer app in regional languages; cold-chain credit tie-ups with banks.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <span class="tl-phase">Phase 3 &middot; 2–3 Years</span>
+            <h4>500-Unit Network</h4>
+            <p>Regional integration with mandis &amp; retailers, aggregate logistics, and a data-backed FPO marketplace.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / CTA ===== -->
+  <section class="section cta-section" id="contact">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Let's keep the North East's harvest fresh.</h2>
+        <p>
+          Partner with us — as a research collaborator, pilot farm, FPO, investor or supporter.
+          One SunChill unit can change the fortunes of an entire village.
+        </p>
+        <div class="cta-actions">
+          <a href="mailto:hello@sunchill.in?subject=Pilot%20partnership%20with%20SunChill" class="btn btn-light btn-lg">Partner With Us</a>
+          <a href="#home" class="btn btn-ghost-light btn-lg">Back to Top</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="#home" class="brand brand-dark">
+          <span class="brand-icon">&#9728;</span>
+          <span class="brand-name">Sun<span class="accent">Chill</span></span>
+        </a>
+        <p class="footer-tag">
+          Solar-Powered Smart Mini Cold Storage System for Fresh Vegetables in the North Eastern Region (NER).
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#features">Features</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#impact">Impact</a>
+      </div>
+      <div class="footer-note">
+        <p>Theme: Agriculture, FoodTech &amp; Rural Development</p>
+        <p class="copyright">&copy; 2026 SunChill. Prototype concept &mdash; prepared for hackathon evaluation.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
